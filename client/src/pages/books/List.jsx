@@ -1,33 +1,37 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { Button, Header, Grid, Table } from 'semantic-ui-react'
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { Button, Header, Grid, Table } from "semantic-ui-react";
 
 const List = ({ match }) => {
-  const [books, setBooks] = useState([])
+  const [books, setBooks] = useState([]);
   const loadBooks = () => {
-    axios.get('/api/books/').then(response => {
-      setBooks(response.data)
-    })
-  }
+    axios
+      .get("https://library-management-6svy.onrender.com/api/books/")
+      .then((response) => {
+        setBooks(response.data);
+      });
+  };
   useEffect(() => {
-    loadBooks()
-  }, [])
+    loadBooks();
+  }, []);
 
-  const deleteBook = _id => {
-    axios.delete(`/api/books/${_id}`).then(() => {
-      loadBooks()
-    })
-  }
+  const deleteBook = (_id) => {
+    axios
+      .delete(`https://library-management-6svy.onrender.com/api/books/${_id}`)
+      .then(() => {
+        loadBooks();
+      });
+  };
 
   return (
     <>
       <Grid>
-        <Grid.Column width={8} textAlign='left'>
-          <Header as='h2'>List</Header>
+        <Grid.Column width={8} textAlign="left">
+          <Header as="h2">List</Header>
         </Grid.Column>
-        <Grid.Column width={8} textAlign='right'>
-          <Button color='green' as={Link} to={`${match.url}/create`}>
+        <Grid.Column width={8} textAlign="right">
+          <Button color="green" as={Link} to={`${match.url}/create`}>
             New
           </Button>
         </Grid.Column>
@@ -44,13 +48,13 @@ const List = ({ match }) => {
         </Table.Header>
 
         <Table.Body>
-          {books.map(book => {
-            const { _id, title, author, subject, publicationDate } = book
+          {books.map((book) => {
+            const { _id, title, author, subject, publicationDate } = book;
             return (
               <Table.Row key={_id}>
                 <Table.Cell>{title}</Table.Cell>
                 <Table.Cell>
-                  {author ? `${author.givenName} ${author.lastName}` : ''}
+                  {author ? `${author.givenName} ${author.lastName}` : ""}
                 </Table.Cell>
                 <Table.Cell>{subject}</Table.Cell>
                 <Table.Cell>
@@ -58,26 +62,26 @@ const List = ({ match }) => {
                     ? publicationDate.slice(0, 10)
                     : publicationDate}
                 </Table.Cell>
-                <Table.Cell textAlign='center'>
+                <Table.Cell textAlign="center">
                   <Button
                     basic
-                    color='blue'
+                    color="blue"
                     as={Link}
                     to={`${match.url}/${_id}`}
                   >
                     Edit
                   </Button>
-                  <Button basic color='red' onClick={() => deleteBook(_id)}>
+                  <Button basic color="red" onClick={() => deleteBook(_id)}>
                     Delete
                   </Button>
                 </Table.Cell>
               </Table.Row>
-            )
+            );
           })}
         </Table.Body>
       </Table>
     </>
-  )
-}
+  );
+};
 
-export default List
+export default List;
