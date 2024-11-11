@@ -1,4 +1,4 @@
-const IssueBook = require('../models/issuebook') // Adjust the path according to your project structure
+const IssueBook = require('../models/IssueBooks') // Adjust the path according to your project structure
 
 module.exports = {
   // List all issued books
