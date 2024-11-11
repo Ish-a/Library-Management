@@ -29,10 +29,10 @@ const cors = require("cors");
 app.use(cors());
 
 app.use(express.json());
-app.use("https://library-management-6svy.onrender.com/api/authors", authors);
-app.use("https://library-management-6svy.onrender.com/api/books", books);
-app.use("https://library-management-6svy.onrender.com/api/subject", subject);
-app.use("https://library-management-6svy.onrender.com/api/issuebooks", issue);
+app.use("/api/authors", authors);
+app.use("/api/books", books);
+app.use("/api/subject", subject);
+app.use("/api/issuebooks", issue);
 
 app.listen(port, () => {
   console.log(`Server started at http://localhost:${port}`);
